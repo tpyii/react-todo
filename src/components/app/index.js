@@ -26,7 +26,9 @@ export default class App extends React.Component {
   addItem = label => {
     const newItem = {
       id: Date.now(),
-      label
+      label,
+      important: false,
+      done: false,
     }
 
     this.setState(({ todos }) => {
@@ -37,33 +39,35 @@ export default class App extends React.Component {
   }
 
   onLabelClick = id => {
-    const { todos } = this.state;
-    const newTodos = todos.map(item => {
-      if(item.id === id)
-        item.done = !item.done;
-
-      return item;
-    });
-
     this.setState(({ todos }) => {
+      const idx = todos.findIndex(el => el.id === id);
+      const oldItem = todos[idx];
+      const newItem = { ...oldItem, done: !oldItem.done };
+      const newArray = [
+        ...todos.slice(0, idx),
+        newItem,
+        ...todos.slice(idx + 1)
+      ];
+
       return {
-        todos: newTodos
+        todos: newArray
       }
     });
   }
 
   onBtnImportantClick = id => {
-    const { todos } = this.state;
-    const newTodos = todos.map(item => {
-      if(item.id === id)
-        item.important = !item.important;
-
-      return item;
-    });
-
     this.setState(({ todos }) => {
+      const idx = todos.findIndex(el => el.id === id);
+      const oldItem = todos[idx];
+      const newItem = { ...oldItem, important: !oldItem.important };
+      const newArray = [
+        ...todos.slice(0, idx),
+        newItem,
+        ...todos.slice(idx + 1)
+      ];
+
       return {
-        todos: newTodos
+        todos: newArray
       }
     });
   }
