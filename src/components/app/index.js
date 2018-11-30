@@ -74,19 +74,13 @@ export default class App extends React.Component {
 
   render() {
     const { todos } = this.state;
-
-    const todosActive = todos.filter(item => {
-      return !item.done;
-    });
-
-    const todosDone = todos.filter(item => {
-      return item.done;
-    });
+    const todosDoneCount = todos.filter(item => item.done).length;
+    const todosActiveCount = todos.length - todosDoneCount;
 
     return (
       <div className="container">
-        <AppHeader active={todosActive.length} 
-                   done={todosDone.length} 
+        <AppHeader active={todosActiveCount} 
+                   done={todosDoneCount} 
         />
         <SearchPanel />
         <TodoList todos={ todos } 
