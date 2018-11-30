@@ -1,0 +1,13 @@
+.todo-list-item {
+  user-select: none;
+  cursor: pointer;
+}
+
+.todo-list-item.important {
+  color: blue;
+  font-weight: bold;
+}
+
+.todo-list-item.done {
+  text-decoration: line-through;
+}
