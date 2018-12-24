@@ -2,7 +2,7 @@ import React from 'react';
 import TodoListItem from '../todo-list-item/';
 import './index.css';
 
-const TodoList = ({ todos, deleteItem, onBtnImportantClick, onLabelClick }) => {
+const TodoList = ({ todos, deleteItem, toggleTodoProp }) => {
   const elements = todos.map((item) => {
     const { id, ...itemProps } = item;
     return (
@@ -10,8 +10,8 @@ const TodoList = ({ todos, deleteItem, onBtnImportantClick, onLabelClick }) => {
         className="list-group-item">
         <TodoListItem { ...itemProps } 
         deleteItem={() => deleteItem(id)}
-        onBtnImportantClick={() => onBtnImportantClick(id)}
-        onLabelClick={() => onLabelClick(id)} />
+        onBtnImportantClick={() => toggleTodoProp(id, 'important')}
+        onLabelClick={() => toggleTodoProp(id, 'done')} />
       </li>
     );
   });

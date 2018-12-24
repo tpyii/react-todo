@@ -38,28 +38,11 @@ export default class App extends React.Component {
     });
   }
 
-  onLabelClick = id => {
+  toggleTodoProp = (id, propName) => {
     this.setState(({ todos }) => {
       const idx = todos.findIndex(el => el.id === id);
       const oldItem = todos[idx];
-      const newItem = { ...oldItem, done: !oldItem.done };
-      const newArray = [
-        ...todos.slice(0, idx),
-        newItem,
-        ...todos.slice(idx + 1)
-      ];
-
-      return {
-        todos: newArray
-      }
-    });
-  }
-
-  onBtnImportantClick = id => {
-    this.setState(({ todos }) => {
-      const idx = todos.findIndex(el => el.id === id);
-      const oldItem = todos[idx];
-      const newItem = { ...oldItem, important: !oldItem.important };
+      const newItem = { ...oldItem, [propName]: !oldItem[propName] };
       const newArray = [
         ...todos.slice(0, idx),
         newItem,
@@ -85,8 +68,7 @@ export default class App extends React.Component {
         <SearchPanel />
         <TodoList todos={ todos } 
                   deleteItem={this.deleteItem}
-                  onLabelClick={this.onLabelClick}
-                  onBtnImportantClick={this.onBtnImportantClick} 
+                  toggleTodoProp={this.toggleTodoProp}
         />
         <ItemAddPanel addItem={this.addItem} />
       </div>
