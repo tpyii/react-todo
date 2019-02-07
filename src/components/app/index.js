@@ -11,10 +11,11 @@ export default class App extends React.Component {
       { id: 2, label: 'Make Awesome App', important: false, done: false },
       { id: 3, label: 'Have a lunch', important: false, done: false },
     ],
-  }
+    searchValue: '',
+  };
 
   deleteItem = id => {
-    this.setState(({ todos })=> {
+    this.setState(({ todos }) => {
       return {
         todos: todos.filter(item => {
           return item.id !== id;
@@ -55,8 +56,18 @@ export default class App extends React.Component {
     });
   }
 
+  searchTodo = e => {
+    const { value } = e.currentTarget;
+    
+    this.setState(({ searchValue }) => {
+      return {
+        searchValue: value,
+      }
+    });
+  }
+
   render() {
-    const { todos } = this.state;
+    const { todos, searchValue } = this.state;
     const todosDoneCount = todos.filter(item => item.done).length;
     const todosActiveCount = todos.length - todosDoneCount;
 
@@ -65,8 +76,9 @@ export default class App extends React.Component {
         <AppHeader active={todosActiveCount} 
                    done={todosDoneCount} 
         />
-        <SearchPanel />
+        <SearchPanel searchTodo={this.searchTodo} />
         <TodoList todos={ todos } 
+                  searchValue={ searchValue } 
                   deleteItem={this.deleteItem}
                   toggleTodoProp={this.toggleTodoProp}
         />
