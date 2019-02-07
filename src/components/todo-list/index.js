@@ -2,8 +2,12 @@ import React from 'react';
 import TodoListItem from '../todo-list-item/';
 import './index.css';
 
-const TodoList = ({ todos, deleteItem, toggleTodoProp }) => {
-  const elements = todos.map((item) => {
+const TodoList = ({ todos, searchValue, deleteItem, toggleTodoProp }) => {
+  const filteredTodos = todos.filter((item) => {
+    return item.label.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+  });
+
+  const elements = filteredTodos.map((item) => {
     const { id, ...itemProps } = item;
     return (
       <li key={id} 
